@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "pulselink-mobile",
+    "name": "Pulselink",
     "slug": "pulselink-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -11,17 +11,24 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "experiments": {
+      "tsconfigPaths": true
+    },
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.asgarovf.pulselinkmobile",
+      "infoPlist": {
+        "NSHealthShareUsageDescription": "Allow $(PRODUCT_NAME) to read and understand health data",
+        "NSHealthClinicalHealthRecordsShareUsageDescription": "Allow $(PRODUCT_NAME) to Read and understand clinical health data."
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.asgarovf.pulselinkmobile"
     },
     "web": {
       "favicon": "./assets/favicon.png"
