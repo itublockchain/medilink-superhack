@@ -5,6 +5,7 @@ import AppleHealthKit, {
   HealthPermission,
 } from "react-native-health";
 import { RSA } from "react-native-rsa-native";
+import { Buffer } from "buffer";
 
 let message =
   "my secret messageaksofkoasfkoasfkoaskfokasfokoasfkoasfkoasfkoasfkokaosfkafskafskoasfko apsflpasflpasflplafsplpafslpafslpafslpafslasfkoasfkakosfkoasfkosfkoasfkoasfoasfkoafsokko";
@@ -90,10 +91,11 @@ export default function App() {
       <Button
         title="Keys"
         onPress={() => {
-          RSA.generateKeys(4096) // set key size
+          RSA.generateKeys(2048) // set key size
             .then((keys) => {
-              console.log("4096 private:", keys.private); // the private key
-              console.log("4096 public:", keys.public); // the public key
+              // console.log("HERE", Buffer.from(keys.private, "hex"));
+              console.log("256 private:"); // the private key
+              console.log("256 public:", keys.public); // the public key
               RSA.encrypt(message, keys.public).then((encodedMessage) => {
                 console.log(`the encoded message is ${encodedMessage}`);
                 console.log("HERE------");
