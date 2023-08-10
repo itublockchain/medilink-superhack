@@ -17,12 +17,13 @@ const forFade = ({
 export const useScreenOptions = (): StackNavigationOptions => {
     return {
         headerStyle: {
-            backgroundColor: colors.secondary,
+            backgroundColor: '#FFFEF8',
             borderBottomColor: colors.primary,
             borderBottomWidth: 1,
         },
         headerTitleStyle: {
-            color: colors.primary,
+            color: '#25292D',
+            fontWeight: '400',
         },
         headerBackTitle: '',
         headerBackTitleStyle: {

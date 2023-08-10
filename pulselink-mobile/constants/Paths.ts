@@ -1,7 +1,5 @@
 export enum Paths {
-    EVENTS = 'EVENTS',
-    ACCOUNT = 'ACCOUNT',
-    MY_TICKETHS = 'MY TICKETHS',
-    EVENT = 'EVENT',
-    VALIDATE = 'VALIDATE',
+    HOME = 'HOME',
+    MESSAGES = 'MESSAGES',
+    MEDICAL_CARDS = 'MY MEDICAL_CARDS',
 }

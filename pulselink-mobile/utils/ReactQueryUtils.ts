@@ -1,6 +1,6 @@
 import { QueryClient } from 'react-query';
 
-export const tickethQueryClient = new QueryClient({
+export const pulseLinkQueryClient = new QueryClient({
     defaultOptions: {
         queries: {
             cacheTime: 0,

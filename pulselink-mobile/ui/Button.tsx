@@ -12,7 +12,7 @@ type Props = {
     buttonOverride?: TouchableOpacityProps;
     isUnderlined?: boolean;
     size?: 'small' | 'medium' | 'large';
-    color?: 'primary' | 'secondary' | 'tertiary' | 'light';
+    color?: 'primary' | 'secondary' | 'tertiary';
     children?: string | JSX.Element;
     loading?: boolean;
     disabled?: boolean;
@@ -109,16 +109,16 @@ export const styles = StyleSheet.create({
         backgroundColor: colors.primary,
     },
     secondary: {
-        backgroundColor: colors.secondary,
-    },
-    tertiary: {
-        backgroundColor: colors.tertiary,
-    },
-    light: {
         backgroundColor: colors.light,
         borderStyle: 'solid',
-        borderColor: colors.secondary,
+        borderColor: colors.primary,
         borderWidth: 1,
+    },
+    tertiary: {
+        borderStyle: 'solid',
+        backgroundColor: colors.tertiary,
+        borderWidth: 1,
+        borderColor: colors.primary,
     },
     textprimary: {
         color: '#fff',
@@ -127,9 +127,6 @@ export const styles = StyleSheet.create({
         color: '#000',
     },
     texttertiary: {
-        color: '#000',
-    },
-    textlight: {
         color: '#000',
     },
     disabled: {

@@ -1,35 +1,36 @@
-import AppleHealthKit, { HealthKitPermissions } from "react-native-health";
+import AppleHealthKit from 'react-native-health';
+import type { HealthKitPermissions } from 'react-native-health';
 
 const PermissionsRef = AppleHealthKit.Constants.Permissions;
 
 export const permissions = {
-  permissions: {
-    read: [
-      PermissionsRef.ActiveEnergyBurned,
-      PermissionsRef.ActivitySummary,
-      PermissionsRef.AppleStandTime,
-      PermissionsRef.BloodType,
-      PermissionsRef.BodyFatPercentage,
-      PermissionsRef.BodyTemperature,
-      PermissionsRef.DateOfBirth,
-      PermissionsRef.DistanceWalkingRunning,
-      PermissionsRef.DistanceCycling,
-      PermissionsRef.DistanceSwimming,
-      PermissionsRef.EnergyConsumed,
-      PermissionsRef.Height,
-      PermissionsRef.Workout,
-      PermissionsRef.Weight,
-      PermissionsRef.Water,
-      PermissionsRef.Steps,
-      PermissionsRef.StepCount,
-      PermissionsRef.RunningSpeed,
-      PermissionsRef.HeartRate,
-      PermissionsRef.HeartRateVariability,
-      PermissionsRef.RestingHeartRate,
-      PermissionsRef.WalkingHeartRateAverage,
-    ],
-    write: [],
-  },
+    permissions: {
+        read: [
+            PermissionsRef.ActiveEnergyBurned,
+            PermissionsRef.ActivitySummary,
+            PermissionsRef.AppleStandTime,
+            PermissionsRef.BloodType,
+            PermissionsRef.BodyFatPercentage,
+            PermissionsRef.BodyTemperature,
+            PermissionsRef.DateOfBirth,
+            PermissionsRef.DistanceWalkingRunning,
+            PermissionsRef.DistanceCycling,
+            PermissionsRef.DistanceSwimming,
+            PermissionsRef.EnergyConsumed,
+            PermissionsRef.Height,
+            PermissionsRef.Workout,
+            PermissionsRef.Weight,
+            PermissionsRef.Water,
+            PermissionsRef.Steps,
+            PermissionsRef.StepCount,
+            PermissionsRef.RunningSpeed,
+            PermissionsRef.HeartRate,
+            PermissionsRef.HeartRateVariability,
+            PermissionsRef.RestingHeartRate,
+            PermissionsRef.WalkingHeartRateAverage,
+        ],
+        write: [],
+    },
 } as HealthKitPermissions;
 
 // <Button
