@@ -21,6 +21,9 @@
       "infoPlist": {
         "NSHealthShareUsageDescription": "Allow $(PRODUCT_NAME) to read and understand health data",
         "NSHealthClinicalHealthRecordsShareUsageDescription": "Allow $(PRODUCT_NAME) to Read and understand clinical health data."
+      },
+      "config": {
+        "usesNonExemptEncryption": false
       }
     },
     "android": {
