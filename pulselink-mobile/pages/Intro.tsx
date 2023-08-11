@@ -12,8 +12,7 @@ import { colors } from 'styles/colors';
 import { Poppins } from 'styles/theme';
 import { wrappedEthers } from 'wrappedEthers';
 
-import { Layout } from '../ui';
-import { Button } from '../ui/Button';
+import { Button, Layout } from '../ui';
 
 export const Intro = (): JSX.Element => {
     const setAuth = useSetAuth();
@@ -127,7 +126,7 @@ export const Intro = (): JSX.Element => {
                                 fontFamily: Poppins.semibold,
                             }}
                         >
-                            PulseLink
+                            MediLink
                         </Text>
                     </View>
 

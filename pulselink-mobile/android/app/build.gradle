@@ -81,9 +81,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace 'com.asgarovf.pulselinkmobile'
+    namespace 'com.asgarovf.medilinkmobile'
     defaultConfig {
-        applicationId 'com.asgarovf.pulselinkmobile'
+        applicationId 'com.asgarovf.medilinkmobile'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

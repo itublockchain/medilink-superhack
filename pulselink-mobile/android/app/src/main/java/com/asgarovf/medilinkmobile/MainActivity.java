@@ -1,4 +1,4 @@
-package com.asgarovf.pulselinkmobile;
+package com.asgarovf.medilinkmobile;
 
 import android.os.Build;
 import android.os.Bundle;
