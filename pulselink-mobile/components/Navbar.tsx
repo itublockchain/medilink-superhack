@@ -1,4 +1,5 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { message, messageFilled } from 'icons/message.icon';
 import { useMemo } from 'react';
 import type { ReactNode } from 'react';
 import { Text, View } from 'react-native';
@@ -7,14 +8,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import 'wrappedEthers';
 
 import { Paths } from '../constants';
-import {
-    home,
-    homeFilled,
-    imageSquare,
-    imageSquredFilled,
-    user,
-    userFilled,
-} from '../icons';
+import { home, homeFilled, user, userFilled } from '../icons';
 import { colors } from '../styles/colors';
 import { Icon } from '../ui';
 
@@ -48,8 +42,8 @@ const Navbar = (): JSX.Element => {
             },
             {
                 name: '',
-                icon: imageSquare(20),
-                iconActive: imageSquredFilled(20),
+                icon: message(20),
+                iconActive: messageFilled(20),
                 isActive: route.name === Paths.MESSAGES,
                 path: Paths.MESSAGES,
             },
@@ -58,34 +52,36 @@ const Navbar = (): JSX.Element => {
 
     return (
         <View style={styles.wrapper}>
-            {navbarItems.map(({ isActive, name, icon, iconActive, path }) => {
-                const iconColor = !isActive
-                    ? styles.icon.color
-                    : styles.iconActive.color;
+            {navbarItems.map(
+                ({ isActive, name, icon, iconActive, path }, index) => {
+                    const iconColor = !isActive
+                        ? styles.icon.color
+                        : styles.iconActive.color;
 
-                return (
-                    <NavbarButton
-                        onPress={(): void => {
-                            navigation.navigate(path as never);
-                        }}
-                        key={name}
-                    >
-                        <View style={styles.button}>
-                            <View
-                                style={[
-                                    styles.iconWrapper,
-                                    isActive && styles.iconWrapperActive,
-                                ]}
-                            >
-                                <Icon color={iconColor}>
-                                    {isActive ? iconActive : icon}
-                                </Icon>
+                    return (
+                        <NavbarButton
+                            onPress={(): void => {
+                                navigation.navigate(path as never);
+                            }}
+                            key={index}
+                        >
+                            <View style={styles.button}>
+                                <View
+                                    style={[
+                                        styles.iconWrapper,
+                                        isActive && styles.iconWrapperActive,
+                                    ]}
+                                >
+                                    <Icon color={iconColor}>
+                                        {isActive ? iconActive : icon}
+                                    </Icon>
+                                </View>
+                                <Text style={styles.text}>{name}</Text>
                             </View>
-                            <Text style={styles.text}>{name}</Text>
-                        </View>
-                    </NavbarButton>
-                );
-            })}
+                        </NavbarButton>
+                    );
+                },
+            )}
         </View>
     );
 };

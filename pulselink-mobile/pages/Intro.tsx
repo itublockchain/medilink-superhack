@@ -1,8 +1,9 @@
 import { IntroIllustration } from 'assets';
 import type { Wallet } from 'ethers';
+import * as LocalAuthentication from 'expo-local-authentication';
 import * as SecureStore from 'expo-secure-store';
-import { useEffect } from 'react';
-import { Alert, Image, KeyboardAvoidingView, Text, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Image, KeyboardAvoidingView, Text, View } from 'react-native';
 import { Dimensions, StyleSheet } from 'react-native';
 import { useMutation } from 'react-query';
 import type { AuthWallet } from 'store/auth/AuthStore';
@@ -16,6 +17,17 @@ import { Button } from '../ui/Button';
 
 export const Intro = (): JSX.Element => {
     const setAuth = useSetAuth();
+    const [hasAccount, setHasAccount] = useState(false);
+
+    useEffect(() => {
+        const genHasAccount = async (): Promise<void> => {
+            const existingAccount = await SecureStore.getItemAsync('account');
+            if (existingAccount != null) {
+                setHasAccount(true);
+            }
+        };
+        genHasAccount();
+    }, []);
 
     useEffect(() => {
         const genAuthIfExists = async (): Promise<void> => {
@@ -24,17 +36,27 @@ export const Intro = (): JSX.Element => {
                 return;
             }
 
-            const walletJSON: AuthWallet = JSON.parse(existingWallet);
+            await LocalAuthentication.getEnrolledLevelAsync();
+            const result = await LocalAuthentication.authenticateAsync();
 
-            setAuth({
-                isAuth: true,
-                wallet: walletJSON,
-            });
+            if (result.success) {
+                const walletJSON: AuthWallet = JSON.parse(existingWallet);
+
+                setAuth({
+                    isAuth: true,
+                    wallet: walletJSON,
+                });
+            } else {
+                setAuth({
+                    isAuth: false,
+                    wallet: null,
+                });
+            }
         };
         genAuthIfExists();
     }, []);
 
-    const genDelayedWallet = async (): Promise<Wallet> => {
+    const genDelayedWallet = async (): Promise<Wallet | null> => {
         return await new Promise((resolve) => {
             setTimeout(() => {
                 const wallet = wrappedEthers.Wallet.createRandom();
@@ -43,22 +65,48 @@ export const Intro = (): JSX.Element => {
         });
     };
 
-    const createWallet = async (): Promise<void> => {
-        const wallet = await genDelayedWallet();
-        const createdWallet: AuthWallet = {
-            privateKey: wallet.privateKey,
-            publicKey: wallet.publicKey,
-            address: wallet.address,
-        };
-        await SecureStore.setItemAsync('wallet', JSON.stringify(createdWallet));
-        Alert.alert('Medical ID created successfully');
-        setAuth({
-            isAuth: true,
-            wallet: createdWallet,
-        });
+    const createOrLoginWallet = async (): Promise<void> => {
+        await LocalAuthentication.getEnrolledLevelAsync();
+        const result = await LocalAuthentication.authenticateAsync();
+
+        if (!result.success) {
+            return;
+        }
+
+        if (hasAccount) {
+            const existingWallet = await SecureStore.getItemAsync('account');
+            await SecureStore.setItemAsync('wallet', existingWallet);
+            const walletJSON = JSON.parse(existingWallet);
+            setAuth({
+                isAuth: true,
+                wallet: walletJSON,
+            });
+        } else {
+            const wallet = await genDelayedWallet();
+            if (wallet == null) {
+                return;
+            }
+            const createdWallet: AuthWallet = {
+                privateKey: wallet.privateKey,
+                publicKey: wallet.publicKey,
+                address: wallet.address,
+            };
+            await SecureStore.setItemAsync(
+                'account',
+                JSON.stringify(createdWallet),
+            );
+            await SecureStore.setItemAsync(
+                'wallet',
+                JSON.stringify(createdWallet),
+            );
+            setAuth({
+                isAuth: true,
+                wallet: createdWallet,
+            });
+        }
     };
 
-    const mutation = useMutation(createWallet);
+    const mutation = useMutation(createOrLoginWallet);
 
     return (
         <KeyboardAvoidingView
@@ -89,7 +137,9 @@ export const Intro = (): JSX.Element => {
                             onPress={mutation.mutate}
                             color="tertiary"
                         >
-                            Create Medical ID
+                            {hasAccount
+                                ? 'Login to Medical ID'
+                                : 'Create Medical ID'}
                         </Button>
                         <Button
                             buttonOverride={{

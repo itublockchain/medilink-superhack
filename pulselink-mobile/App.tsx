@@ -6,13 +6,15 @@ import { StatusBar } from 'expo-status-bar';
 import { useScreenOptions } from 'hooks';
 import { Home } from 'pages/Home';
 import { Intro } from 'pages/Intro';
+import { MedicalCards } from 'pages/MedicalCards';
+import { Messages } from 'pages/Messages';
 import React from 'react';
 import type { ReactNode } from 'react';
 import { QueryClientProvider } from 'react-query';
 import { RecoilRoot } from 'recoil';
 import { useAuth } from 'store/auth/AuthStore';
 import { usePoppins } from 'styles/theme';
-import { pulseLinkQueryClient } from 'utils/ReactQueryUtils';
+import { mediLinkQueryClient } from 'utils/ReactQueryUtils';
 
 const StackNavigator = createStackNavigator();
 SplashScreen.preventAutoHideAsync();
@@ -28,7 +30,7 @@ export default function App(): ReactNode {
         if (fontsLoaded) {
             setTimeout(() => {
                 hideSplashScreen();
-            }, 1000);
+            }, 250);
         }
     }, [fontsLoaded]);
 
@@ -37,7 +39,7 @@ export default function App(): ReactNode {
     }
 
     return (
-        <QueryClientProvider client={pulseLinkQueryClient}>
+        <QueryClientProvider client={mediLinkQueryClient}>
             <StatusBar style="dark" />
             <RecoilRoot>
                 <Main />
@@ -57,6 +59,16 @@ function Main(): JSX.Element {
                         options={screenOptions}
                         name={Paths.HOME}
                         component={Home}
+                    />
+                    <StackNavigator.Screen
+                        options={screenOptions}
+                        name={Paths.MEDICAL_CARDS}
+                        component={MedicalCards}
+                    />
+                    <StackNavigator.Screen
+                        options={screenOptions}
+                        name={Paths.MESSAGES}
+                        component={Messages}
                     />
                 </StackNavigator.Navigator>
             ) : (

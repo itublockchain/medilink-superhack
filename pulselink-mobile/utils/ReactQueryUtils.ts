@@ -1,6 +1,6 @@
 import { QueryClient } from 'react-query';
 
-export const pulseLinkQueryClient = new QueryClient({
+export const mediLinkQueryClient = new QueryClient({
     defaultOptions: {
         queries: {
             cacheTime: 0,

@@ -50,6 +50,8 @@
         </dict>
       </dict>
     </dict>
+    <key>NSFaceIDUsageDescription</key>
+    <string>Allow $(PRODUCT_NAME) to use Face ID.</string>
     <key>NSHealthClinicalHealthRecordsShareUsageDescription</key>
     <string>Allow $(PRODUCT_NAME) to Read and understand clinical health data.</string>
     <key>NSHealthShareUsageDescription</key>
