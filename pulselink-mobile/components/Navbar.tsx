@@ -126,21 +126,21 @@ export const styles = StyleSheet.create({
         paddingRight: 16,
         paddingTop: 6,
         paddingBottom: 6,
-        backgroundColor: colors.light,
+        backgroundColor: '#FFFFF4',
         borderRadius: 12,
     },
     iconWrapperActive: {
-        backgroundColor: colors.primary,
+        backgroundColor: colors.tertiary,
     },
     text: {
         marginTop: 6,
-        color: colors.primary,
+        color: colors.tertiary,
         fontSize: 12,
     },
     icon: {
-        color: colors.primary,
+        color: colors.tertiary,
     },
     iconActive: {
-        color: colors.secondary,
+        color: '#6C355C',
     },
 });

@@ -18,6 +18,7 @@ import { colors } from 'styles/colors';
 import { Poppins } from 'styles/theme';
 import { Layout } from 'ui';
 import { Button } from 'ui/Button';
+import { getHealthEndDateOption, getHealthStartDateOption } from 'utils/date';
 
 enum HomeStep {
     PERMISSSION_FAILED,
@@ -39,6 +40,17 @@ export const Home = (): ReactNode => {
 
                 setStep(HomeStep.READY);
             });
+
+            AppleHealthKit.getDailyStepCountSamples(
+                {
+                    startDate: getHealthStartDateOption(),
+                    endDate: getHealthEndDateOption(),
+                },
+                (err, response) => {
+                    console.log(err);
+                    console.log(response);
+                },
+            );
         }, 1000);
     }, []);
 

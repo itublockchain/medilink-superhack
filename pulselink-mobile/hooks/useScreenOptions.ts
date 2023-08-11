@@ -27,9 +27,9 @@ export const useScreenOptions = (): StackNavigationOptions => {
         },
         headerBackTitle: '',
         headerBackTitleStyle: {
-            color: colors.primary,
+            color: '#6C355C',
         },
-        headerTintColor: colors.primary,
+        headerTintColor: '#6C355C',
         headerShadowVisible: false,
         cardStyleInterpolator: forFade,
     };

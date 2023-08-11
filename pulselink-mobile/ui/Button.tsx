@@ -81,11 +81,16 @@ export const Button = ({
 export const styles = StyleSheet.create({
     button: {
         width: '100%',
-        borderRadius: 12,
+        borderRadius: 8,
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
+        boxShadow: '4px -4px 4px -5px',
+        shadowColor: 'rgba(138, 133, 67, 0.72)', // IOS
+        shadowOffset: { height: 2, width: 1 }, // IOS
+        shadowOpacity: 1, // IOS
+        shadowRadius: 1, //IOS
     },
     text: {
         fontSize: 16,
@@ -109,7 +114,7 @@ export const styles = StyleSheet.create({
         backgroundColor: colors.primary,
     },
     secondary: {
-        backgroundColor: colors.light,
+        backgroundColor: colors.secondary,
         borderStyle: 'solid',
         borderColor: colors.primary,
         borderWidth: 1,
@@ -121,7 +126,7 @@ export const styles = StyleSheet.create({
         borderColor: colors.primary,
     },
     textprimary: {
-        color: '#fff',
+        color: '#000',
     },
     textsecondary: {
         color: '#000',

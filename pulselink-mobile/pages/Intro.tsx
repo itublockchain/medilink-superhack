@@ -120,21 +120,13 @@ export const Intro = (): JSX.Element => {
                             source={IntroIllustration}
                             style={styles.illustration}
                         />
-                        <Text
-                            style={{
-                                fontSize: 48,
-                                fontFamily: Poppins.semibold,
-                            }}
-                        >
-                            MediLink
-                        </Text>
                     </View>
 
                     <View style={styles.connect}>
                         <Button
                             loading={mutation.isLoading}
                             onPress={mutation.mutate}
-                            color="tertiary"
+                            color="secondary"
                         >
                             {hasAccount
                                 ? 'Login to Medical ID'
@@ -146,7 +138,7 @@ export const Intro = (): JSX.Element => {
                                     marginTop: 8,
                                 },
                             }}
-                            color="secondary"
+                            color="primary"
                         >
                             Connect by WorldID
                         </Button>
@@ -171,7 +163,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
     },
     illustrationWrapper: {
-        marginTop: 120,
+        marginTop: 180,
         width: '100%',
         marginLeft: 'auto',
         marginRight: 'auto',
