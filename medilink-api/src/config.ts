@@ -1,6 +1,7 @@
 import type { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { config } from 'dotenv';
-import { Messages } from 'src/entities/Message.entity';
+import { Chat } from 'src/entities/Chat.entity';
+import { Message } from 'src/entities/Message.entity';
 import { Environment } from 'src/utils/Environment';
 
 config();
@@ -13,7 +14,7 @@ export const CONFIG: Config = {
     username: Environment.DB_USER,
     password: Environment.DB_PASSWORD,
     database: Environment.DB_NAME,
-    entities: [Messages],
+    entities: [Message, Chat],
     synchronize: true,
   } as TypeOrmModuleOptions,
   PORT: Environment.PORT,

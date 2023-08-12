@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { CONFIG } from 'src/config';
 import { EasModule } from 'src/modules/eas/Eas.module';
 import { FaucetModule } from 'src/modules/faucet/Faucet.module';
+import { MessageModule } from 'src/modules/messages/Message.module';
 import { TransactionModule } from 'src/modules/transaction/Transaction.module';
 
 @Module({
@@ -22,6 +23,7 @@ import { TransactionModule } from 'src/modules/transaction/Transaction.module';
     EasModule,
     TransactionModule,
     FaucetModule,
+    MessageModule,
   ],
   controllers: [],
   providers: [],

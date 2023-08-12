@@ -82,6 +82,11 @@ export class Environment {
   static COVALENT_API_KEY: string = process.env.COVALENT_API_KEY;
 
   /**
+   * @dev Open AI Key
+   */
+  static OPEN_AI_KEY: string = process.env.OPEN_AI_KEY;
+
+  /**
    * @dev ENCRYPTION_KEY
    */
   static ENCRYPTION_KEY: Uint8Array = new Uint8Array(

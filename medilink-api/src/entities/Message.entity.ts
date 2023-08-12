@@ -20,6 +20,10 @@ export class Message {
   receiver: string;
 
   @ApiProperty()
+  @Column({ default: '', length: 10000 })
+  message: string;
+
+  @ApiProperty()
   @Column({ nullable: true, default: null })
   attachmentId: string | null;
 }
