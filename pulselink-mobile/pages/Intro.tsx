@@ -3,13 +3,12 @@ import type { Wallet } from 'ethers';
 import * as LocalAuthentication from 'expo-local-authentication';
 import * as SecureStore from 'expo-secure-store';
 import { useEffect, useState } from 'react';
-import { Image, KeyboardAvoidingView, Text, View } from 'react-native';
+import { Image, KeyboardAvoidingView, View } from 'react-native';
 import { Dimensions, StyleSheet } from 'react-native';
 import { useMutation } from 'react-query';
 import type { AuthWallet } from 'store/auth/AuthStore';
 import { useSetAuth } from 'store/auth/AuthStore';
 import { colors } from 'styles/colors';
-import { Poppins } from 'styles/theme';
 import { wrappedEthers } from 'wrappedEthers';
 
 import { Button, Layout } from '../ui';
@@ -164,13 +163,13 @@ export const styles = StyleSheet.create({
     },
     illustrationWrapper: {
         marginTop: 180,
-        width: '100%',
+        width: '80%',
         marginLeft: 'auto',
         marginRight: 'auto',
         alignItems: 'center',
     },
     illustration: {
-        width: '90%',
+        width: '80%',
         height: Dimensions.get('screen').height / 2,
         resizeMode: 'contain',
     },

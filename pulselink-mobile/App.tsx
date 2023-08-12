@@ -52,28 +52,31 @@ function Main(): JSX.Element {
     const { isAuth } = useAuth();
     const screenOptions = useScreenOptions();
     return (
-        <NavigationContainer>
-            {isAuth ? (
-                <StackNavigator.Navigator>
-                    <StackNavigator.Screen
-                        options={screenOptions}
-                        name={Paths.HOME}
-                        component={Home}
-                    />
-                    <StackNavigator.Screen
-                        options={screenOptions}
-                        name={Paths.MEDICAL_CARDS}
-                        component={MedicalCards}
-                    />
-                    <StackNavigator.Screen
-                        options={screenOptions}
-                        name={Paths.MESSAGES}
-                        component={Messages}
-                    />
-                </StackNavigator.Navigator>
-            ) : (
-                <Intro />
-            )}
-        </NavigationContainer>
+        <>
+            {isAuth && null}
+            <NavigationContainer>
+                {isAuth ? (
+                    <StackNavigator.Navigator>
+                        <StackNavigator.Screen
+                            options={screenOptions}
+                            name={Paths.HOME}
+                            component={Home}
+                        />
+                        <StackNavigator.Screen
+                            options={screenOptions}
+                            name={Paths.MEDICAL_CARDS}
+                            component={MedicalCards}
+                        />
+                        <StackNavigator.Screen
+                            options={screenOptions}
+                            name={Paths.MESSAGES}
+                            component={Messages}
+                        />
+                    </StackNavigator.Navigator>
+                ) : (
+                    <Intro />
+                )}
+            </NavigationContainer>
+        </>
     );
 }
