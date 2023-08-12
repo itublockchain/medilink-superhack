@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { Navbar } from 'components';
 import { Paths, permissions } from 'constants/permissions';
+import * as LocalAuthentication from 'expo-local-authentication';
 import { useMedicalData } from 'hooks/useMedicalData';
 import { useState } from 'react';
 import type { ReactNode } from 'react';
@@ -83,7 +84,17 @@ export const CreateMedicalCard = (): ReactNode => {
                         <Button
                             loading={mutation.isLoading}
                             disabled={!wrappedEthers.utils.isAddress(recipient)}
-                            onPress={mutation.mutate}
+                            onPress={async (): Promise<void> => {
+                                await LocalAuthentication.getEnrolledLevelAsync();
+                                const result =
+                                    await LocalAuthentication.authenticateAsync();
+
+                                if (!result.success) {
+                                    return;
+                                }
+
+                                mutation.mutate();
+                            }}
                             color="secondary"
                             buttonOverride={{
                                 style: {

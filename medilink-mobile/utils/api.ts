@@ -45,6 +45,29 @@ export const apiPostFaucetRequest = async (
     return await axios.post('/faucet', { address });
 };
 
+export const apiPostSendMessage = async (
+    data: SendMessageDto,
+): Promise<AxiosResponse<Message>> => {
+    return await axios.post('/message', data);
+};
+
 export const queryKeys = {
     MEDICAL_CARDS: 'medical-cards',
+};
+
+export type SendMessageDto = {
+    message: string;
+    attachment_id?: string;
+    chat_id?: number;
+    sender: string;
+    receiver: string;
+};
+
+export type Message = {
+    id: number;
+    chat_id: number;
+    sender: string;
+    receiver: string;
+    attachmentId: string | null;
+    message: string;
 };

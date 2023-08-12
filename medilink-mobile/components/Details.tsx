@@ -97,6 +97,7 @@ export const Details = ({ showLogout = false }: Props): ReactNode => {
                             },
                         }}
                         onPress={async (): Promise<void> => {
+                            await SecureStore.deleteItemAsync('account');
                             await SecureStore.deleteItemAsync('wallet');
                             setAuth({
                                 isAuth: false,

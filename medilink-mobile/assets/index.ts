@@ -17,4 +17,4 @@ export const SleepTime = require('./illustrations/sleep.png');
 export const HearthIcon = require('./illustrations/hearth.png');
 
 // eslint-disable-next-line
-export const Bot = require('./illustrations/bot.jpeg');
+export const Bot = require('./illustrations/bot.png');

@@ -46,7 +46,8 @@ const Navbar = (): JSX.Element => {
                 name: '',
                 icon: message(20),
                 iconActive: messageFilled(20),
-                isActive: route.name === Paths.MESSAGES,
+                isActive:
+                    route.name === Paths.MESSAGES || route.name === Paths.CHAT,
                 path: Paths.MESSAGES,
             },
         ].filter((item) => item != null) as Array<NavbarItem>;
