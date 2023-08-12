@@ -12,7 +12,7 @@ export class FaucetService {
     const balanceBigNumber = await provider.getBalance(address);
     const balance = formatEther(balanceBigNumber);
 
-    if (Number(balance) > 0.001) {
+    if (Number(balance) > 0.01) {
       return { status: 'ok' };
     }
 
@@ -21,7 +21,7 @@ export class FaucetService {
 
       const tx = await wallet.sendTransaction({
         to: address,
-        value: parseEther('0.002'),
+        value: parseEther('0.01'),
       });
       await tx.wait();
 

@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { Navbar } from 'components';
 import { Paths, permissions } from 'constants/permissions';
+import { useMedicalData } from 'hooks/useMedicalData';
 import { useState } from 'react';
 import type { ReactNode } from 'react';
 import {
@@ -32,12 +33,13 @@ export const CreateMedicalCard = (): ReactNode => {
     const [recipient, setRecipient] = useState('');
     const eas = useEas();
     const navigation = useNavigation();
+    const medicalData = useMedicalData();
 
     const mutation = useMutation({
         mutationFn: async () =>
             eas.genCreateAttestation({
                 recipient,
-                data: JSON.stringify({}),
+                data: JSON.stringify(medicalData),
             }),
         onSuccess: () => {
             Alert.alert('Your medical card created successfully!');
@@ -89,7 +91,9 @@ export const CreateMedicalCard = (): ReactNode => {
                                 },
                             }}
                         >
-                            Create
+                            {!wrappedEthers.utils.isAddress(recipient)
+                                ? 'Enter a valid address'
+                                : 'Create'}
                         </Button>
                     </Layout>
                 </ScrollView>

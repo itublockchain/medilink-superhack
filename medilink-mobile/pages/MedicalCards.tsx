@@ -45,9 +45,6 @@ export const MedicalCards = (): ReactNode => {
         refetch();
     });
 
-    const medicalData = useMedicalData();
-    console.log(medicalData);
-
     return (
         <SafeAreaView style={{ backgroundColor: colors.light }}>
             <View style={styles.wrapper}>

@@ -1,8 +1,10 @@
+import { Calories, HeartRate, SleepTime, Steps } from 'assets';
 import { Navbar } from 'components';
 import { Details } from 'components/Details';
-import { StepsCard } from 'components/cards/StepsCard';
+import { AbstractCard } from 'components/cards/AbstractCard';
 import { permissions } from 'constants/permissions';
 import { useHandleMedicalData } from 'hooks/useHandleMedicalData';
+import { useMedicalData } from 'hooks/useMedicalData';
 import { useRefresh } from 'hooks/useRefresh';
 import { useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
@@ -50,56 +52,90 @@ export const Home = (): ReactNode => {
         }, 1000);
     }, []);
 
-    const Main = (): ReactNode => {
-        switch (step) {
-            case HomeStep.PERMISSSION_REQUESTED:
-                return (
-                    <View style={styles.fullheight}>
-                        <ActivityIndicator />
-                        <View>
-                            <Text style={styles.text}>
-                                Requesting Apple permission
-                            </Text>
-                        </View>
-                    </View>
-                );
-            case HomeStep.PERMISSSION_FAILED:
-                return (
-                    <View style={styles.fullheight}>
-                        <Text style={styles.text}>
-                            Enable permissions to Apple Health to proceed.
-                        </Text>
-
-                        <Text style={styles.text}>Settings {'>'} Health</Text>
-                    </View>
-                );
-            case HomeStep.READY:
-                return (
-                    <View>
-                        <Details />
-                        <Layout>
-                            <View style={styles.row}>
-                                <StepsCard />
-                                <StepsCard />
-                            </View>
-                        </Layout>
-                    </View>
-                );
-        }
-    };
-
     return (
         <SafeAreaView style={{ backgroundColor: colors.light }}>
             <View style={styles.wrapper}>
                 <ScrollView
                     refreshControl={<RefreshControl {...refreshProps} />}
                 >
-                    <Main />
+                    <Main step={step} />
                 </ScrollView>
                 <Navbar />
             </View>
         </SafeAreaView>
     );
+};
+
+const Main = ({ step }: { step: HomeStep }): ReactNode => {
+    const medicalData = useMedicalData();
+    switch (step) {
+        case HomeStep.PERMISSSION_REQUESTED:
+            return (
+                <View style={styles.fullheight}>
+                    <ActivityIndicator />
+                    <View>
+                        <Text style={styles.text}>
+                            Requesting Apple permission
+                        </Text>
+                    </View>
+                </View>
+            );
+        case HomeStep.PERMISSSION_FAILED:
+            return (
+                <View style={styles.fullheight}>
+                    <Text style={styles.text}>
+                        Enable permissions to Apple Health to proceed.
+                    </Text>
+
+                    <Text style={styles.text}>Settings {'>'} Health</Text>
+                </View>
+            );
+        case HomeStep.READY:
+            return (
+                <View>
+                    <Details />
+                    <Layout>
+                        <View style={styles.row}>
+                            <AbstractCard
+                                title="Steps"
+                                average={medicalData.averageSteps}
+                                asset={Steps}
+                            />
+                            <AbstractCard
+                                title="Hearth rate"
+                                average={medicalData.averageRestingHearthRate}
+                                asset={HeartRate}
+                            />
+                        </View>
+                        <View style={styles.row}>
+                            <AbstractCard
+                                title="Resting rate"
+                                average={medicalData.averageRestingHearthRate}
+                                asset={HeartRate}
+                            />
+
+                            <AbstractCard
+                                average={medicalData.averageActiviy}
+                                title="Calories burnt"
+                                asset={Calories}
+                            />
+                        </View>
+                        <View style={[styles.row, { marginBottom: 120 }]}>
+                            <AbstractCard
+                                average={medicalData.averageStandtime}
+                                title="Stand time"
+                                asset={SleepTime}
+                            />
+                            <AbstractCard
+                                average={medicalData.averageSleepTime}
+                                title="Sleep time"
+                                asset={SleepTime}
+                            />
+                        </View>
+                    </Layout>
+                </View>
+            );
+    }
 };
 
 //eslint-disable-next-line

@@ -1,22 +1,24 @@
-import { Steps } from 'assets';
 import type { ReactNode } from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
-import { useDailyStepCountSamples } from 'store/health/HealthStore';
 import { colors } from 'styles/colors';
 import { Poppins } from 'styles/theme';
 
-export const StepsCard = (): ReactNode => {
-    const steps = useDailyStepCountSamples();
+type Props = {
+    title: string;
+    average: string;
+    asset: any;
+};
 
+export const AbstractCard = ({ average, asset, title }: Props): ReactNode => {
     return (
         <View style={styles.wrapper}>
             <View style={[styles.row, styles.between]}>
-                <Text style={styles.title}>Steps</Text>
-                <Image source={Steps} />
+                <Text style={styles.title}>{title}</Text>
+                <Image style={{ width: 32, height: 32 }} source={asset} />
             </View>
             <View style={styles.column}>
                 <Text style={styles.subtitle}>Average: </Text>
-                <Text style={styles.text}>Value</Text>
+                <Text style={styles.text}>{average}</Text>
             </View>
             <View style={styles.column}>
                 <View style={styles.badge}>
@@ -47,7 +49,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontFamily: Poppins.medium,
-        fontSize: 18,
+        fontSize: 14,
     },
     subtitle: {
         fontFamily: Poppins.light,
