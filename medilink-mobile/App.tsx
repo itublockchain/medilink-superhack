@@ -4,6 +4,7 @@ import { Paths } from 'constants/Paths';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useScreenOptions } from 'hooks';
+import { Chat } from 'pages/Chat';
 import { CreateMedicalCard } from 'pages/CreateMedicalCard';
 import { Home } from 'pages/Home';
 import { Intro } from 'pages/Intro';
@@ -77,6 +78,11 @@ function Main(): JSX.Element {
                             options={screenOptions}
                             name={Paths.CREATE_MEDICAL_CARD}
                             component={CreateMedicalCard}
+                        />
+                        <StackNavigator.Screen
+                            options={screenOptions}
+                            name={Paths.CHAT}
+                            component={Chat}
                         />
                     </StackNavigator.Navigator>
                 ) : (

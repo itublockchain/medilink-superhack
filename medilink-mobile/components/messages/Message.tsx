@@ -1,6 +1,9 @@
+import { useNavigation } from '@react-navigation/native';
 import { Bot } from 'assets';
+import { Paths } from 'constants/Paths';
 import type { ReactNode } from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { colors } from 'styles/colors';
 import { Poppins } from 'styles/theme';
 import { Icon } from 'ui';
@@ -13,8 +16,16 @@ type Props = {
 };
 
 export const Message = ({ address, isBot }: Props): ReactNode => {
+    const navigation = useNavigation();
+
     return (
-        <View style={styles.card}>
+        <TouchableOpacity
+            onPress={(): void => {
+                const params = [Paths.CHAT, { address }];
+                navigation.navigate(...(params as never));
+            }}
+            style={styles.card}
+        >
             <View style={styles.row}>
                 <View style={[styles.avatar, !isBot && styles.padding]}>
                     {isBot ? (
@@ -34,7 +45,7 @@ export const Message = ({ address, isBot }: Props): ReactNode => {
                     {isBot ? 'Medical Assistant' : formatAddress(address, 10)}
                 </Text>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 };
 

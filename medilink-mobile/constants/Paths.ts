@@ -3,4 +3,5 @@ export enum Paths {
     MESSAGES = 'MESSAGES',
     MEDICAL_CARDS = 'MY MEDICAL CARDS',
     CREATE_MEDICAL_CARD = 'CREATE MEDICAL CARD',
+    CHAT = 'CHAT',
 }
