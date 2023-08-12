@@ -2,11 +2,13 @@ import { Navbar } from 'components';
 import { Details } from 'components/Details';
 import { permissions } from 'constants/permissions';
 import { useHandleMedicalData } from 'hooks/useHandleMedicalData';
+import { useRefresh } from 'hooks/useRefresh';
 import { useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 import {
     ActivityIndicator,
     Dimensions,
+    RefreshControl,
     SafeAreaView,
     StyleSheet,
     Text,
@@ -27,6 +29,10 @@ enum HomeStep {
 export const Home = (): ReactNode => {
     const [step, setStep] = useState<HomeStep>(HomeStep.PERMISSSION_REQUESTED);
     const { handleMedicalData } = useHandleMedicalData();
+
+    const refreshProps = useRefresh(() => {
+        handleMedicalData();
+    });
 
     useEffect(() => {
         setTimeout(() => {
@@ -70,7 +76,9 @@ export const Home = (): ReactNode => {
                 return (
                     <View>
                         <Details />
-                        <Layout></Layout>
+                        <Layout>
+                            <View></View>
+                        </Layout>
                     </View>
                 );
         }
@@ -79,7 +87,9 @@ export const Home = (): ReactNode => {
     return (
         <SafeAreaView style={{ backgroundColor: colors.light }}>
             <View style={styles.wrapper}>
-                <ScrollView>
+                <ScrollView
+                    refreshControl={<RefreshControl {...refreshProps} />}
+                >
                     <Main />
                 </ScrollView>
                 <Navbar />
