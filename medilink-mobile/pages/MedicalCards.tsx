@@ -1,3 +1,4 @@
+import { useEas } from 'App';
 import { Navbar } from 'components';
 import { Details } from 'components/Details';
 import type { ReactNode } from 'react';
@@ -6,10 +7,10 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { useAuthNullSafe } from 'store/auth/AuthStore';
 import { colors } from 'styles/colors';
 import { Button } from 'ui';
-import { MedilinkEAS } from 'utils/eas';
 
 export const MedicalCards = (): ReactNode => {
     const auth = useAuthNullSafe();
+    const eas = useEas();
 
     return (
         <SafeAreaView style={{ backgroundColor: colors.light }}>
@@ -18,7 +19,11 @@ export const MedicalCards = (): ReactNode => {
                     <Details showLogout={true} />
                     <Button
                         onPress={async (): Promise<void> => {
-                            const eas = new MedilinkEAS(auth.wallet.privateKey);
+                            const res = await eas.genNullableAttestation(
+                                '0xa8711e5be29ec502a06d239bca43b10c4d40239051975b886fe89c9969b19044',
+                            );
+
+                            console.log(res);
                         }}
                     >
                         Get attestation
