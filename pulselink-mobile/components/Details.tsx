@@ -76,7 +76,7 @@ export const Details = ({ showLogout = false }: Props): ReactNode => {
                     title="Height"
                     value={
                         height?.value
-                            ? ((height.value * 2.54) / 100).toFixed(2)
+                            ? ((height.value * 2.54) / 100).toFixed(2) + ' m'
                             : 'Unknown'
                     }
                 />

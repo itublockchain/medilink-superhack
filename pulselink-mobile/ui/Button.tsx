@@ -86,7 +86,6 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        boxShadow: '4px -4px 4px -5px',
         shadowColor: 'rgba(138, 133, 67, 0.72)', // IOS
         shadowOffset: { height: 2, width: 1 }, // IOS
         shadowOpacity: 1, // IOS

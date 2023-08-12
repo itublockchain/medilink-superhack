@@ -1,5 +1,6 @@
 import { Navbar } from 'components';
 import { Details } from 'components/Details';
+import { StepsCard } from 'components/cards/StepsCard';
 import { permissions } from 'constants/permissions';
 import { useHandleMedicalData } from 'hooks/useHandleMedicalData';
 import { useRefresh } from 'hooks/useRefresh';
@@ -77,7 +78,10 @@ export const Home = (): ReactNode => {
                     <View>
                         <Details />
                         <Layout>
-                            <View></View>
+                            <View style={styles.row}>
+                                <StepsCard />
+                                <StepsCard />
+                            </View>
                         </Layout>
                     </View>
                 );
@@ -113,5 +117,11 @@ const styles = StyleSheet.create({
     text: {
         marginTop: 12,
         fontFamily: Poppins.regular,
+    },
+    row: {
+        marginTop: 24,
+        flexDirection: 'row',
+        width: '100%',
+        justifyContent: 'space-between',
     },
 });
