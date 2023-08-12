@@ -1,7 +1,4 @@
-import {
-  Attestation,
-  SchemaEncoder,
-} from '@ethereum-attestation-service/eas-sdk';
+import { SchemaEncoder } from '@ethereum-attestation-service/eas-sdk';
 import { Injectable } from '@nestjs/common';
 import request, { RequestDocument, Variables } from 'graphql-request';
 import { AttestationByIdQuerySchema } from 'src/modules/eas/EasGraphQLSchemas';

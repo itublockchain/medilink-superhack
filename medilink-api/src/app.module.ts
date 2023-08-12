@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CONFIG } from 'src/config';
 import { EasModule } from 'src/modules/eas/Eas.module';
+import { FaucetModule } from 'src/modules/faucet/Faucet.module';
 import { TransactionModule } from 'src/modules/transaction/Transaction.module';
 
 @Module({
@@ -20,6 +21,7 @@ import { TransactionModule } from 'src/modules/transaction/Transaction.module';
 
     EasModule,
     TransactionModule,
+    FaucetModule,
   ],
   controllers: [],
   providers: [],

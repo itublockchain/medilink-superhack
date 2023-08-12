@@ -28,3 +28,9 @@ export const apiGetTransactions = async (
 ): Promise<AxiosResponse<Attestation | null>> => {
     return await axios.get(`/transaction/${address}`);
 };
+
+export const apiPostFaucetRequest = async (
+    address: string,
+): Promise<AxiosResponse<Attestation | null>> => {
+    return await axios.post('/faucet', { address });
+};

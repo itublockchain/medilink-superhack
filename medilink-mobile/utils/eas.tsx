@@ -6,6 +6,7 @@ import {
     apiGetNullableAttestationById,
     apiGetTransactions,
     apiPostCreateAttestation,
+    apiPostFaucetRequest,
 } from 'utils/api';
 
 export class MedilinkEAS {
@@ -55,6 +56,7 @@ export function EasContextProvider({
     useEffect(() => {
         if (auth.isAuth) {
             setEasService(new MedilinkEAS(auth.wallet.privateKey));
+            apiPostFaucetRequest(auth.wallet.address);
         }
     }, [auth]);
 
