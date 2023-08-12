@@ -103,7 +103,7 @@ const Main = ({ step }: { step: HomeStep }): ReactNode => {
                             />
                             <AbstractCard
                                 title="Hearth rate"
-                                average={medicalData.averageRestingHearthRate}
+                                average={medicalData.averageHearthRate}
                                 asset={HeartRate}
                             />
                         </View>
