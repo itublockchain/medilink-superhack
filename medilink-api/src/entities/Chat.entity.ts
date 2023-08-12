@@ -12,4 +12,10 @@ export class Chat {
 
   @Column()
   user_2: string;
+
+  @Column({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  updated_at: Date;
 }

@@ -10,6 +10,8 @@
         "web": "expo start --web"
     },
     "dependencies": {
+        "@dicebear/avatars": "^4.10.8",
+        "@dicebear/avatars-human-sprites": "^4.10.8",
         "@ethereum-attestation-service/eas-sdk": "0.29.1",
         "@ethersproject/shims": "5.7.0",
         "@expo-google-fonts/poppins": "^0.2.3",

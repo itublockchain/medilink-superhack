@@ -12,8 +12,9 @@ import {
 } from 'store/health/HealthStore';
 import { colors } from 'styles/colors';
 import { Poppins } from 'styles/theme';
-import { Button } from 'ui';
+import { Button, Icon } from 'ui';
 import { formatAddress } from 'utils/formatAddress';
+import { getUserAvatar } from 'utils/getUserAvatar';
 
 type Props = {
     showLogout?: boolean;
@@ -49,6 +50,9 @@ export const Details = ({ showLogout = false }: Props): ReactNode => {
 
     return (
         <View style={styles.wrapper}>
+            <View style={{ marginBottom: 8 }}>
+                <Icon size={48}>{getUserAvatar(auth.wallet.address, 48)}</Icon>
+            </View>
             <View>
                 <Text style={styles.header}>
                     {formatAddress(auth.wallet.address, 8)}
