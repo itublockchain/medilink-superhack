@@ -1,6 +1,7 @@
 import { Navbar } from 'components';
 import { permissions } from 'constants/permissions';
 import * as SecureStore from 'expo-secure-store';
+import { useHandleMedicalData } from 'hooks/useHandleMedicalData';
 import { useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 import {
@@ -18,7 +19,6 @@ import { colors } from 'styles/colors';
 import { Poppins } from 'styles/theme';
 import { Layout } from 'ui';
 import { Button } from 'ui/Button';
-import { handleMedicalData } from 'utils/handleMedicalData';
 
 enum HomeStep {
     PERMISSSION_FAILED,
@@ -29,6 +29,7 @@ enum HomeStep {
 export const Home = (): ReactNode => {
     const [step, setStep] = useState<HomeStep>(HomeStep.PERMISSSION_REQUESTED);
     const setAuth = useSetAuth();
+    const { handleMedicalData } = useHandleMedicalData();
 
     useEffect(() => {
         setTimeout(() => {

@@ -1,4 +1,4 @@
-import type { HealthValue } from 'react-native-health';
+import type { HealthActivitySummary, HealthValue } from 'react-native-health';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import type { SetterOrUpdater } from 'recoil';
 import { atom } from 'recoil';
@@ -8,7 +8,7 @@ const DailyStepCountSamplesAtom = atom<Array<HealthValue>>({
     key: 'HealthDailyStepCount.Atom',
 });
 
-const ActiviySummaryAtom = atom<Array<HealthValue>>({
+const ActiviySummaryAtom = atom<Array<HealthActivitySummary>>({
     default: [],
     key: 'HealthActiviySummary.Atom',
 });
@@ -28,8 +28,8 @@ const HearthRateSamplesAtom = atom<Array<HealthValue>>({
     key: 'HealthHearthRateSamples.Atom',
 });
 
-const RestingHearthRateSamplesAtom = atom<Array<HealthValue>>({
-    default: [],
+const RestingHearthRateSamplesAtom = atom<HealthValue | null>({
+    default: null,
     key: 'HealthRestingHearthRateSamples.Atom',
 });
 
@@ -62,11 +62,11 @@ export const useSetDailyStepCountSamples = (): SetterOrUpdater<
     return useSetRecoilState(DailyStepCountSamplesAtom);
 };
 
-export const useActivitySamples = (): Array<HealthValue> => {
+export const useActivitySamples = (): Array<HealthActivitySummary> => {
     return useRecoilValue(ActiviySummaryAtom);
 };
 export const useSetActivitySamples = (): SetterOrUpdater<
-    Array<HealthValue>
+    Array<HealthActivitySummary>
 > => {
     return useSetRecoilState(ActiviySummaryAtom);
 };
@@ -94,14 +94,13 @@ export const useSetHearthRateSamples = (): SetterOrUpdater<
     return useSetRecoilState(HearthRateSamplesAtom);
 };
 
-export const useRestingHearthRateSamples = (): Array<HealthValue> => {
+export const useRestingHearthRate = (): HealthValue | null => {
     return useRecoilValue(RestingHearthRateSamplesAtom);
 };
-export const useSetRestingHearthRateSamples = (): SetterOrUpdater<
-    Array<HealthValue>
-> => {
-    return useSetRecoilState(RestingHearthRateSamplesAtom);
-};
+export const useSetRestingHearthRate =
+    (): SetterOrUpdater<HealthValue | null> => {
+        return useSetRecoilState(RestingHearthRateSamplesAtom);
+    };
 
 export const useBloodType = (): HealthValue | null => {
     return useRecoilValue(BloodTypeAtom);
