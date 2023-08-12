@@ -3,7 +3,6 @@ import { HearthIcon } from 'assets';
 import { Navbar } from 'components';
 import { Details } from 'components/Details';
 import { Paths } from 'constants/Paths';
-import { useMedicalData } from 'hooks/useMedicalData';
 import { useRefresh } from 'hooks/useRefresh';
 import { send } from 'icons';
 import type { ReactNode } from 'react';
