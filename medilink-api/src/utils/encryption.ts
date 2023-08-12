@@ -6,7 +6,7 @@ import {
 } from '@polybase/util';
 import { Environment } from 'src/utils/Environment';
 
-export async function encyptString(data: string): Promise<string> {
+export async function encryptString(data: string): Promise<string> {
   const strDataToBeEncrypted = decodeFromString(data, 'utf8');
 
   const encryptedData = await aescbc.symmetricEncrypt(

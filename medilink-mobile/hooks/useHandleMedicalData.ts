@@ -1,4 +1,4 @@
-import AppleHealthKit from 'react-native-health';
+import AppleHealthKit, { HealthValue } from 'react-native-health';
 import {
     useSetActivitySamples,
     useSetBiologicalSex,
@@ -86,7 +86,7 @@ export const useHandleMedicalData = (): ReturnType => {
                 endDate: getHealthEndDateOption(),
             },
             (err, response) => {
-                setRestingHeartRate(response);
+                setRestingHeartRate(response as any);
             },
         );
 

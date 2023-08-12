@@ -28,7 +28,7 @@ const HearthRateSamplesAtom = atom<Array<HealthValue>>({
     key: 'HealthHearthRateSamples.Atom',
 });
 
-const RestingHearthRateSamplesAtom = atom<HealthValue | null>({
+const RestingHearthRateSamplesAtom = atom<Array<HealthValue>>({
     default: null,
     key: 'HealthRestingHearthRateSamples.Atom',
 });
@@ -94,13 +94,14 @@ export const useSetHearthRateSamples = (): SetterOrUpdater<
     return useSetRecoilState(HearthRateSamplesAtom);
 };
 
-export const useRestingHearthRate = (): HealthValue | null => {
-    return useRecoilValue<HealthValue | null>(RestingHearthRateSamplesAtom);
+export const useRestingHearthRate = (): Array<HealthValue> => {
+    return useRecoilValue<Array<HealthValue>>(RestingHearthRateSamplesAtom);
 };
-export const useSetRestingHearthRate =
-    (): SetterOrUpdater<HealthValue | null> => {
-        return useSetRecoilState(RestingHearthRateSamplesAtom);
-    };
+export const useSetRestingHearthRate = (): SetterOrUpdater<
+    Array<HealthValue>
+> => {
+    return useSetRecoilState(RestingHearthRateSamplesAtom);
+};
 
 export const useBloodType = (): HealthValue | null => {
     return useRecoilValue<HealthValue | null>(BloodTypeAtom);

@@ -3,7 +3,7 @@ import type { AxiosResponse } from 'axios';
 import type { AttestationDto, AttestationResponse } from 'utils/eas';
 
 export const axios = Axios.create({
-    baseURL: 'http://127.0.0.1:8000/api/v1',
+    baseURL: 'http://10.5.45.108:8000/api/v1',
 });
 
 export const apiGetNullableAttestationById = async (

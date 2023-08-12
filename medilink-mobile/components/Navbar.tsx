@@ -30,7 +30,9 @@ const Navbar = (): JSX.Element => {
                 name: '',
                 icon: user(20),
                 iconActive: userFilled(20),
-                isActive: route.name === Paths.MEDICAL_CARDS,
+                isActive:
+                    route.name === Paths.MEDICAL_CARDS ||
+                    route.name === Paths.CREATE_MEDICAL_CARD,
                 path: Paths.MEDICAL_CARDS,
             },
             {

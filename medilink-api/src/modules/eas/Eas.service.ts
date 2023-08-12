@@ -14,6 +14,7 @@ import {
 } from 'src/modules/eas/Eas.dto';
 import { Interface, ethers } from 'ethers';
 import { EAS_ABI } from 'src/utils/abi';
+import { encryptString } from 'src/utils/encryption';
 
 const ZERO_BYTES32 =
   '0x0000000000000000000000000000000000000000000000000000000000000000';
@@ -63,7 +64,7 @@ export class EasService {
         expirationTime: 0,
         refUID: ZERO_BYTES32,
         revocable: true,
-        data: this.getEncodedData(attestation.data),
+        data: await this.genEncodedData(attestation.data),
         value: 0,
       },
     });
@@ -83,10 +84,11 @@ export class EasService {
     }
   }
 
-  public getEncodedData(data: string): string {
+  public async genEncodedData(data: string): Promise<string> {
     const schemaEncoder = new SchemaEncoder('string data');
+    const encrypted = await encryptString(data);
     const encodedData = schemaEncoder.encodeData([
-      { name: 'data', value: data, type: 'string' },
+      { name: 'data', value: encrypted, type: 'string' },
     ]);
     return encodedData;
   }
