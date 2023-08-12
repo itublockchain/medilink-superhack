@@ -8,6 +8,7 @@ import { EAS, SchemaEncoder } from '@ethereum-attestation-service/eas-sdk';
 import { Environment } from 'src/utils/Environment';
 import { getRpcProvider } from 'src/utils/getRPCProvider';
 import { AttestationDto } from 'src/modules/eas/Eas.dto';
+import { ethers } from 'ethers';
 
 export class EasGraphQLService {
   public static async genAttestation(
@@ -27,10 +28,13 @@ export class EasGraphQLService {
     return encodedData;
   }
 
-  public static getEasInstance(): EAS {
+  public static getEasInstance(key: string): EAS {
     const eas = new EAS(Environment.EAS_CONTRACT);
     const provider = getRpcProvider();
-    eas.connect(provider);
+
+    const wallet = new ethers.Wallet(key, provider);
+
+    eas.connect(wallet as any);
     return eas;
   }
 
