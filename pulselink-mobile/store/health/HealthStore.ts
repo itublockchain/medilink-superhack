@@ -95,7 +95,7 @@ export const useSetHearthRateSamples = (): SetterOrUpdater<
 };
 
 export const useRestingHearthRate = (): HealthValue | null => {
-    return useRecoilValue(RestingHearthRateSamplesAtom);
+    return useRecoilValue<HealthValue | null>(RestingHearthRateSamplesAtom);
 };
 export const useSetRestingHearthRate =
     (): SetterOrUpdater<HealthValue | null> => {
@@ -103,28 +103,28 @@ export const useSetRestingHearthRate =
     };
 
 export const useBloodType = (): HealthValue | null => {
-    return useRecoilValue(BloodTypeAtom);
+    return useRecoilValue<HealthValue | null>(BloodTypeAtom);
 };
 export const useSetBloodType = (): SetterOrUpdater<HealthValue | null> => {
     return useSetRecoilState(BloodTypeAtom);
 };
 
 export const useHeight = (): HealthValue | null => {
-    return useRecoilValue(HeightAtom);
+    return useRecoilValue<HealthValue | null>(HeightAtom);
 };
 export const useSetHeight = (): SetterOrUpdater<HealthValue | null> => {
     return useSetRecoilState(HeightAtom);
 };
 
 export const useWeight = (): HealthValue | null => {
-    return useRecoilValue(WeightAtom);
+    return useRecoilValue<HealthValue | null>(WeightAtom);
 };
 export const useSetWeight = (): SetterOrUpdater<HealthValue | null> => {
     return useSetRecoilState(WeightAtom);
 };
 
 export const useBiologicalSex = (): HealthValue | null => {
-    return useRecoilValue(BiologicalSexAtom);
+    return useRecoilValue<HealthValue | null>(BiologicalSexAtom);
 };
 export const useSetBiologicalSex = (): SetterOrUpdater<HealthValue | null> => {
     return useSetRecoilState(BiologicalSexAtom);

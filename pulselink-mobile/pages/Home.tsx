@@ -1,6 +1,6 @@
 import { Navbar } from 'components';
+import { Details } from 'components/Details';
 import { permissions } from 'constants/permissions';
-import * as SecureStore from 'expo-secure-store';
 import { useHandleMedicalData } from 'hooks/useHandleMedicalData';
 import { useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
@@ -14,11 +14,9 @@ import {
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import AppleHealthKit from 'react-native-health';
-import { useSetAuth } from 'store/auth/AuthStore';
 import { colors } from 'styles/colors';
 import { Poppins } from 'styles/theme';
 import { Layout } from 'ui';
-import { Button } from 'ui/Button';
 
 enum HomeStep {
     PERMISSSION_FAILED,
@@ -28,7 +26,6 @@ enum HomeStep {
 
 export const Home = (): ReactNode => {
     const [step, setStep] = useState<HomeStep>(HomeStep.PERMISSSION_REQUESTED);
-    const setAuth = useSetAuth();
     const { handleMedicalData } = useHandleMedicalData();
 
     useEffect(() => {
@@ -72,20 +69,8 @@ export const Home = (): ReactNode => {
             case HomeStep.READY:
                 return (
                     <View>
-                        <Layout>
-                            <Text>Home</Text>
-                            <Button
-                                onPress={async (): Promise<void> => {
-                                    await SecureStore.deleteItemAsync('wallet');
-                                    setAuth({
-                                        isAuth: false,
-                                        wallet: null,
-                                    });
-                                }}
-                            >
-                                Delete
-                            </Button>
-                        </Layout>
+                        <Details />
+                        <Layout></Layout>
                     </View>
                 );
         }
