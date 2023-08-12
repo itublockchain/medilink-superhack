@@ -75,4 +75,9 @@ export class Environment {
    * @dev EAS Schema Uid
    */
   static EAS_SCHEMA_UID: string = process.env.EAS_SCHEMA_UID;
+
+  /**
+   * @dev Covalent API Key
+   */
+  static COVALENT_API_KEY: string = process.env.COVALENT_API_KEY;
 }

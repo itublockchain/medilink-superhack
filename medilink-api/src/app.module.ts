@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CONFIG } from 'src/config';
 import { EasModule } from 'src/modules/eas/Eas.module';
+import { TransactionModule } from 'src/modules/transaction/Transaction.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { EasModule } from 'src/modules/eas/Eas.module';
     /* REMOVE COMMENTS FOR DB CONNECTION */
 
     EasModule,
+    TransactionModule,
   ],
   controllers: [],
   providers: [],

@@ -6,8 +6,8 @@ export type ProviderEventFilter = {
   topics: Array<string>;
 };
 
-type rpcProvider = ethers.JsonRpcProvider;
-
-export const getRpcProvider = (): rpcProvider => {
-  return new ethers.JsonRpcProvider(Environment.NETWORK_RPC_URL);
+export const getSigner = (key: string): ethers.Wallet => {
+  const provider = new ethers.JsonRpcProvider(Environment.NETWORK_RPC_URL);
+  const signer = new ethers.Wallet(key, provider);
+  return signer;
 };

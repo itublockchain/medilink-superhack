@@ -8,14 +8,14 @@ import { Home } from 'pages/Home';
 import { Intro } from 'pages/Intro';
 import { MedicalCards } from 'pages/MedicalCards';
 import { Messages } from 'pages/Messages';
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import type { ReactNode } from 'react';
 import { QueryClientProvider } from 'react-query';
 import { RecoilRoot } from 'recoil';
 import { useAuth } from 'store/auth/AuthStore';
 import { usePoppins } from 'styles/theme';
 import { mediLinkQueryClient } from 'utils/ReactQueryUtils';
-import { MedilinkEAS } from 'utils/eas';
+import { EasContextProvider } from 'utils/eas';
 
 const StackNavigator = createStackNavigator();
 SplashScreen.preventAutoHideAsync();
@@ -78,25 +78,5 @@ function Main(): JSX.Element {
                 )}
             </NavigationContainer>
         </EasContextProvider>
-    );
-}
-
-const EasContext = React.createContext<MedilinkEAS>(new MedilinkEAS(''));
-export const useEas = (): MedilinkEAS => {
-    return useContext(EasContext);
-};
-
-function EasContextProvider({ children }: { children: ReactNode }): ReactNode {
-    const [easService, setEasService] = useState(new MedilinkEAS(''));
-
-    const auth = useAuth();
-    useEffect(() => {
-        if (auth.isAuth) {
-            setEasService(new MedilinkEAS(auth.wallet.privateKey));
-        }
-    }, [auth]);
-
-    return (
-        <EasContext.Provider value={easService}>{children}</EasContext.Provider>
     );
 }
