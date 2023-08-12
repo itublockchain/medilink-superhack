@@ -14,7 +14,7 @@ import {
 } from 'src/modules/eas/Eas.dto';
 import { Interface, ethers } from 'ethers';
 import { EAS_ABI } from 'src/utils/abi';
-import { encryptString } from 'src/utils/encryption';
+import { decryptString, encryptString } from 'src/utils/encryption';
 
 const ZERO_BYTES32 =
   '0x0000000000000000000000000000000000000000000000000000000000000000';
@@ -23,12 +23,24 @@ export class EasService {
   public async genNullableAttestation(
     attestationId: string,
   ): Promise<AttestationResponseDto> {
-    return await this.graphqlRequest<AttestationResponseDto>(
+    const attestation = await this.graphqlRequest<AttestationResponseDto>(
       AttestationByIdQuerySchema,
       {
         id: attestationId,
       },
     );
+    if (attestation.attestation == null) {
+      return null;
+    }
+
+    try {
+      const decryptedData = await decryptString(attestation.attestation.data);
+      return {
+        attestation: { ...attestation.attestation, data: decryptedData },
+      };
+    } catch {
+      return attestation;
+    }
   }
 
   public async genAttestations(
@@ -39,7 +51,24 @@ export class EasService {
     }>(AttestationsQuerySchema, {
       attester,
     });
-    return response.attestations;
+
+    const decryptedData: Array<string> = [];
+    for (const item of response.attestations) {
+      try {
+        const decrypted = await decryptString(item.data);
+        decryptedData.push(decrypted);
+      } catch (error) {
+        console.log(error);
+        decryptedData.push(item.data);
+      }
+    }
+
+    return response.attestations.map((item, index) => {
+      return {
+        ...item,
+        data: decryptedData[index],
+      };
+    });
   }
 
   public async genCreateAttestation(

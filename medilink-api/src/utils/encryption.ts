@@ -1,3 +1,4 @@
+import { SchemaEncoder } from '@ethereum-attestation-service/eas-sdk';
 import {
   EncryptedDataAesCbc256,
   aescbc,
@@ -18,7 +19,10 @@ export async function encryptString(data: string): Promise<string> {
 }
 
 export async function decryptString(data: string): Promise<string> {
-  const parsed = JSON.parse(data);
+  const schemaDecoder = new SchemaEncoder('string data');
+  const decoded = schemaDecoder.decodeData(data)[0];
+  const value = decoded.value.value;
+  const parsed = JSON.parse(value.toString());
 
   const actual: EncryptedDataAesCbc256 = {
     version: parsed.version,
@@ -34,5 +38,9 @@ export async function decryptString(data: string): Promise<string> {
     Environment.ENCRYPTION_KEY,
     actual,
   );
-  return encodeToString(decrypted, 'utf8');
+  const encoded = encodeToString(decrypted, 'utf8');
+  const schemaEncoded = schemaDecoder.encodeData([
+    { name: 'data', value: encoded, type: 'string' },
+  ]);
+  return schemaEncoded;
 }
