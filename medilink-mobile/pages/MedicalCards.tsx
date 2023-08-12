@@ -1,43 +1,79 @@
-import type { Attestation } from '@ethereum-attestation-service/eas-sdk';
+import { HearthIcon } from 'assets';
 import { Navbar } from 'components';
 import { Details } from 'components/Details';
 import { ethers } from 'ethers';
-import { useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
-import { Dimensions, SafeAreaView, StyleSheet, View } from 'react-native';
+import {
+    ActivityIndicator,
+    Dimensions,
+    Image,
+    SafeAreaView,
+    StyleSheet,
+    Text,
+    View,
+} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { useQuery } from 'react-query';
 import { useAuthNullSafe } from 'store/auth/AuthStore';
 import { colors } from 'styles/colors';
+import { Poppins } from 'styles/theme';
 import { Button, Layout } from 'ui';
+import { queryKeys } from 'utils/api';
 import { useEas } from 'utils/eas';
+import type { AttestationDto } from 'utils/eas';
+import { formatAddress } from 'utils/formatAddress';
 
 export const MedicalCards = (): ReactNode => {
     const auth = useAuthNullSafe();
     const eas = useEas();
-    const [medicalCards, setMedicalCards] = useState<Array<Attestation>>([]);
 
-    useEffect(() => {
-        eas.genUsersAttestation(auth.wallet.address);
-    }, [auth.wallet.address]);
+    const { data, isLoading } = useQuery({
+        queryFn: async (): Promise<Array<AttestationDto>> =>
+            eas.genUsersAttestation(auth.wallet.address),
+        queryKey: queryKeys.MEDICAL_CARDS,
+    });
+    const medicalCards = data ?? [];
 
     return (
         <SafeAreaView style={{ backgroundColor: colors.light }}>
             <View style={styles.wrapper}>
                 <ScrollView>
                     <Details showLogout={true} />
-                    <Layout></Layout>
+                    <Layout>
+                        {medicalCards.length === 0 && isLoading && (
+                            <ActivityIndicator style={{ marginTop: 24 }} />
+                        )}
+                        {medicalCards.map((item) => {
+                            return (
+                                <View key={item.id} style={styles.card}>
+                                    <View style={styles.row}>
+                                        <Text style={styles.date}>
+                                            {new Date(
+                                                item.time * 1000,
+                                            ).toDateString()}
+                                        </Text>
+
+                                        <Image source={HearthIcon} />
+                                    </View>
+                                    <View>
+                                        <Text style={styles.title}>
+                                            Medical Report
+                                        </Text>
+                                    </View>
+                                    <View>
+                                        <Text style={styles.recipient}>
+                                            Attested to:{' '}
+                                            {formatAddress(item.recipient)}
+                                        </Text>
+                                    </View>
+                                </View>
+                            );
+                        })}
+                    </Layout>
                 </ScrollView>
                 <Button
                     buttonOverride={{
                         style: styles.createButton,
-                    }}
-                    onPress={async (): Promise<void> => {
-                        const res = await eas.genCreateAttestation({
-                            recipient: ethers.constants.AddressZero,
-                            data: JSON.stringify({}),
-                        });
-
-                        console.log(res);
                     }}
                 >
                     +
@@ -54,11 +90,42 @@ const styles = StyleSheet.create({
         height: '100%',
         backgroundColor: colors.background,
     },
+    row: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
     createButton: {
         position: 'absolute',
         bottom: 72,
         width: 48,
         left: Dimensions.get('screen').width / 2 - 24,
         borderRadius: 48,
+    },
+    card: {
+        padding: 12,
+        shadowColor: 'rgba(171, 100, 150, 0.57)', // IOS
+        shadowOffset: { height: 2, width: 2 }, // IOS
+        shadowOpacity: 1, // IOS
+        shadowRadius: 1, //IOS
+        borderRadius: 12,
+        backgroundColor: colors.primary,
+        width: '100%',
+        marginTop: 16,
+    },
+    date: {
+        fontFamily: Poppins.medium,
+        opacity: 0.5,
+    },
+    title: {
+        fontFamily: Poppins.medium,
+        opacity: 1,
+        fontSize: 20,
+        marginTop: 8,
+    },
+    recipient: {
+        fontFamily: Poppins.medium,
+        opacity: 0.5,
+        fontSize: 12,
+        marginTop: 12,
     },
 });

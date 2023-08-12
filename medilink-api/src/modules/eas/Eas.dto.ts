@@ -1,9 +1,13 @@
-import { Attestation } from '@ethereum-attestation-service/eas-sdk';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class GetAttestationParams {
   @ApiProperty()
   uid: string;
+}
+
+export class GetAttestationsParams {
+  @ApiProperty()
+  address: string;
 }
 export class CreateAttestationDto {
   @ApiProperty()

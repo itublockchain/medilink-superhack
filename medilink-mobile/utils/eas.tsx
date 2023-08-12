@@ -1,13 +1,29 @@
-import type { Attestation } from '@ethereum-attestation-service/eas-sdk';
 import React, { useContext, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 import { useAuth } from 'store/auth/AuthStore';
 import {
+    apiGetAttestations,
     apiGetNullableAttestationById,
-    apiGetTransactions,
     apiPostCreateAttestation,
     apiPostFaucetRequest,
 } from 'utils/api';
+
+export type AttestationDto = {
+    id: string;
+    schema: string;
+    refUID: string;
+    time: number;
+    expirationTime: number;
+    revocationTime: number;
+    recipient: string;
+    revocable: boolean;
+    attester: string;
+    data: string;
+};
+
+export type AttestationResponse = {
+    attestation: AttestationDto | null;
+};
 
 export class MedilinkEAS {
     key: string;
@@ -17,25 +33,22 @@ export class MedilinkEAS {
 
     public async genNullableAttestation(
         uid: string,
-    ): Promise<Attestation | null> {
+    ): Promise<AttestationResponse> {
         const attestation = await apiGetNullableAttestationById(uid);
         return attestation.data;
     }
 
     public async genUsersAttestation(
         address: string,
-    ): Promise<Array<Attestation>> {
-        const res = await apiGetTransactions(address);
-        console.log(res.data);
-        return [res.data];
+    ): Promise<Array<AttestationDto>> {
+        const res = await apiGetAttestations(address);
+        return res.data;
     }
 
     public async genCreateAttestation(
-        attestation: Partial<Attestation>,
-    ): Promise<Attestation | null> {
+        attestation: Partial<AttestationDto>,
+    ): Promise<AttestationResponse> {
         const res = await apiPostCreateAttestation(this.key, attestation);
-        console.log(res.data);
-
         return res.data;
     }
 }

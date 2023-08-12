@@ -1,4 +1,4 @@
-import AppleHealthKit, { HealthUnit } from 'react-native-health';
+import AppleHealthKit from 'react-native-health';
 import {
     useSetActivitySamples,
     useSetBiologicalSex,

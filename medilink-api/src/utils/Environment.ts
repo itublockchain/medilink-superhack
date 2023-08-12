@@ -80,4 +80,11 @@ export class Environment {
    * @dev Covalent API Key
    */
   static COVALENT_API_KEY: string = process.env.COVALENT_API_KEY;
+
+  /**
+   * @dev ENCRYPTION_KEY
+   */
+  static ENCRYPTION_KEY: Uint8Array = new Uint8Array(
+    JSON.parse(process.env.ENCRYPTION_KEY),
+  );
 }

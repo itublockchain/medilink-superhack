@@ -15,6 +15,23 @@ export const AttestationByIdQuerySchema = gql`
       revocationTime
       expirationTime
       data
+      time
+    }
+  }
+`;
+
+export const AttestationsQuerySchema = gql`
+  query Attestations($attester: String!) {
+    attestations(where: { attester: { equals: $attester } }) {
+      id
+      attester
+      recipient
+      refUID
+      revocable
+      revocationTime
+      expirationTime
+      data
+      time
     }
   }
 `;

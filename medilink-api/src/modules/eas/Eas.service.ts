@@ -1,10 +1,14 @@
 import { SchemaEncoder } from '@ethereum-attestation-service/eas-sdk';
 import { Injectable } from '@nestjs/common';
 import request, { RequestDocument, Variables } from 'graphql-request';
-import { AttestationByIdQuerySchema } from 'src/modules/eas/EasGraphQLSchemas';
+import {
+  AttestationByIdQuerySchema,
+  AttestationsQuerySchema,
+} from 'src/modules/eas/EasGraphQLSchemas';
 import { getSigner } from 'src/utils/getRPCProvider';
 import { Environment } from 'src/utils/Environment';
 import {
+  AttestationDto,
   AttestationResponseDto,
   CreateAttestationDto,
 } from 'src/modules/eas/Eas.dto';
@@ -24,6 +28,17 @@ export class EasService {
         id: attestationId,
       },
     );
+  }
+
+  public async genAttestations(
+    attester: string,
+  ): Promise<Array<AttestationDto>> {
+    const response = await this.graphqlRequest<{
+      attestations: Array<AttestationDto>;
+    }>(AttestationsQuerySchema, {
+      attester,
+    });
+    return response.attestations;
   }
 
   public async genCreateAttestation(
