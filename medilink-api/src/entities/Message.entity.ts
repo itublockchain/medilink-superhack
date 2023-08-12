@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Messages {
+export class Message {
   @ApiProperty()
   @PrimaryGeneratedColumn('increment')
   id: number;
@@ -21,5 +21,5 @@ export class Messages {
 
   @ApiProperty()
   @Column({ nullable: true, default: null })
-  attachmentId: number | null;
+  attachmentId: string | null;
 }
