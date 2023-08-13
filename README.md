@@ -51,4 +51,4 @@ In addition to all these implementations, we are using the Covalent API to get t
 | Team Member                                    | Role       |
 | ---------------------------------------------- | ---------- |
 | [Farhad Asgarov](https://twitter.com/asgarovf) | Full stack |
-| [Eylul Sahin](https://twitter.com/eyllshn007)  | Designer   |
+| [Eylul Sahin](https://twitter.com/eylllsh)     | Designer   |
