@@ -4,7 +4,7 @@ import axios from 'axios';
 
 @Injectable()
 export class TransactionService {
-  public async genMedicalCards(address: string): Promise<void> {
+  public async genTransactionSummary(address: string): Promise<unknown> {
     const res = await axios.get(
       `https://api.covalenthq.com/v1/optimism-goerli/address/${address}/transactions_summary/`,
       {
@@ -14,7 +14,6 @@ export class TransactionService {
       },
     );
     const items = res.data.data.items;
-
-    console.log(items);
+    return items;
   }
 }
