@@ -2,7 +2,7 @@
 
 Private peer-to-peer medical data sharing application powered by Apple Healthkit, [Ethereum Attestation Service](https://attest.sh/), Account Abstraction, E2E encryption and OpenAI
 
-<img style="width: 320px;height: 320px" src="./docs/logo.png">
+<img style="width: 160px;height: 160px" src="./docs/logo.png">
 
 # Description
 
