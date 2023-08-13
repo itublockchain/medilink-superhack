@@ -12,8 +12,10 @@ import { MedicalCards } from 'pages/MedicalCards';
 import { Messages } from 'pages/Messages';
 import React from 'react';
 import type { ReactNode } from 'react';
+import { Auth0Provider } from 'react-native-auth0';
 import { QueryClientProvider } from 'react-query';
 import { RecoilRoot } from 'recoil';
+import { CLIENT_ID, DOMAIN } from 'secret';
 import { useAuth } from 'store/auth/AuthStore';
 import { usePoppins } from 'styles/theme';
 import { mediLinkQueryClient } from 'utils/ReactQueryUtils';
@@ -55,40 +57,42 @@ function Main(): JSX.Element {
     const { isAuth } = useAuth();
     const screenOptions = useScreenOptions();
     return (
-        <EasContextProvider>
-            <NavigationContainer>
-                {isAuth ? (
-                    <StackNavigator.Navigator>
-                        <StackNavigator.Screen
-                            options={screenOptions}
-                            name={Paths.HOME}
-                            component={Home}
-                        />
-                        <StackNavigator.Screen
-                            options={screenOptions}
-                            name={Paths.MEDICAL_CARDS}
-                            component={MedicalCards}
-                        />
-                        <StackNavigator.Screen
-                            options={screenOptions}
-                            name={Paths.MESSAGES}
-                            component={Messages}
-                        />
-                        <StackNavigator.Screen
-                            options={screenOptions}
-                            name={Paths.CREATE_MEDICAL_CARD}
-                            component={CreateMedicalCard}
-                        />
-                        <StackNavigator.Screen
-                            options={screenOptions}
-                            name={Paths.CHAT}
-                            component={Chat}
-                        />
-                    </StackNavigator.Navigator>
-                ) : (
-                    <Intro />
-                )}
-            </NavigationContainer>
-        </EasContextProvider>
+        <Auth0Provider domain={DOMAIN} clientId={CLIENT_ID}>
+            <EasContextProvider>
+                <NavigationContainer>
+                    {isAuth ? (
+                        <StackNavigator.Navigator>
+                            <StackNavigator.Screen
+                                options={screenOptions}
+                                name={Paths.HOME}
+                                component={Home}
+                            />
+                            <StackNavigator.Screen
+                                options={screenOptions}
+                                name={Paths.MEDICAL_CARDS}
+                                component={MedicalCards}
+                            />
+                            <StackNavigator.Screen
+                                options={screenOptions}
+                                name={Paths.MESSAGES}
+                                component={Messages}
+                            />
+                            <StackNavigator.Screen
+                                options={screenOptions}
+                                name={Paths.CREATE_MEDICAL_CARD}
+                                component={CreateMedicalCard}
+                            />
+                            <StackNavigator.Screen
+                                options={screenOptions}
+                                name={Paths.CHAT}
+                                component={Chat}
+                            />
+                        </StackNavigator.Navigator>
+                    ) : (
+                        <Intro />
+                    )}
+                </NavigationContainer>
+            </EasContextProvider>
+        </Auth0Provider>
     );
 }

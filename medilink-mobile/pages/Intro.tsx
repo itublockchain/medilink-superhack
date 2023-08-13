@@ -3,8 +3,9 @@ import type { Wallet } from 'ethers';
 import * as LocalAuthentication from 'expo-local-authentication';
 import * as SecureStore from 'expo-secure-store';
 import { useEffect, useState } from 'react';
-import { Image, KeyboardAvoidingView, View } from 'react-native';
+import { Alert, Image, KeyboardAvoidingView, View } from 'react-native';
 import { Dimensions, StyleSheet } from 'react-native';
+import { useAuth0 } from 'react-native-auth0';
 import { useMutation } from 'react-query';
 import type { AuthWallet } from 'store/auth/AuthStore';
 import { useSetAuth } from 'store/auth/AuthStore';
@@ -105,6 +106,15 @@ export const Intro = (): JSX.Element => {
     };
 
     const mutation = useMutation(createOrLoginWallet);
+    const { authorize } = useAuth0();
+
+    const handleLoginWithWorldId = async (): Promise<void> => {
+        try {
+            await authorize({}, {});
+        } catch (e) {
+            Alert.alert('Failed to authenticate');
+        }
+    };
 
     return (
         <KeyboardAvoidingView
@@ -132,6 +142,7 @@ export const Intro = (): JSX.Element => {
                                 : 'Create Medical ID'}
                         </Button>
                         <Button
+                            onPress={handleLoginWithWorldId}
                             buttonOverride={{
                                 style: {
                                     marginTop: 8,
